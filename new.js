@@ -1,3 +1,10 @@
+//思路
+//1.创建一个对象 __proto__指向构造函数的prototype
+//2.通过call方法 改变this指向
+//3.判断返回值是否是函数或者对象
+//  是: 直接返回函数或者对象
+//  否: 返回之前创建的对象
+
 function Person(name, age) {
   this.name = name
   this.age = age
