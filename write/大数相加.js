@@ -9,6 +9,7 @@ function bigAdd(a, b) {
 
   let flag = 0, temp = 0
   let res = ''
+  
   for (let i = maxLen - 1; i >= 0; i--) {
     temp = (+a[i]) + (+b[i]) + flag
 
