@@ -11,7 +11,8 @@
     <div id="app"></div>
 
     <script>
-      const vnode = h("div", { class: "head-title" }, [
+      // 1.通过h函数创建一个vnode
+      const vnode = h("div", { class: "head-title", id: "旧的hjj" }, [
         h("p", null, "hjj的mini-vue"),
         h(
           "button",
@@ -24,8 +25,18 @@
         ),
       ])
 
-      // 将vnode挂载到某个div上面
+      // 2. 将vnode挂载到某个div上面
       mount(vnode, document.querySelector("#app"))
+
+      // 3. patch函数
+      setTimeout(() => {
+        const newNode = h(
+          "div",
+          { class: "head-title", id: "new的hjj" },
+          "newText"
+        )
+        patch(vnode, newNode)
+      }, 2000)
     </script>
   </body>
 </html>
