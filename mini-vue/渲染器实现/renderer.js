@@ -97,5 +97,37 @@ const patch = (n1, n2) => {
         el.innerHTML = newChildren
       }
     }
+
+    // 3.2 当新children不是字符串
+    if (typeof newChildren !== "string") {
+      if (typeof oldChildren === "string") {
+        el.innerHTML = ""
+        newChildren.forEach((item) => {
+          mount(item, el)
+        })
+      } else {
+        // 旧和新都是数组了
+        // oldChildren: [v1, v3, v5]
+        // newChildren: [v2, v4, v3, v5]
+        // 先找到最短长度
+        const commonLength = Math.min(oldChildren.length, newChildren.length)
+
+        for (let i = 0; i < commonLength; i++) {
+          patch(oldChildren[i], newChildren[i])
+        }
+
+        if (oldChildren.length > commonLength) {
+          oldChildren.slice(commonLength).forEach((item) => {
+            el.removeChild(item.el)
+          })
+        }
+
+        if (newChildren.length > commonLength) {
+          newChildren.slice(commonLength).forEach((item) => {
+            mount(item, el)
+          })
+        }
+      }
+    }
   }
 }

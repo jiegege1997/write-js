@@ -11,8 +11,7 @@
     <div id="app"></div>
 
     <script>
-      // 1.通过h函数创建一个vnode
-      const vnode = h("div", { class: "head-title", id: "旧的hjj" }, [
+      let testArr = [
         h("p", null, "hjj的mini-vue"),
         h(
           "button",
@@ -23,7 +22,23 @@
           },
           "点击"
         ),
-      ])
+      ]
+      let testLongArr = [
+        h("p", null, "hjj的mini-vue"),
+        h("p", null, "hjj的mini-vue"),
+        h("p", null, "hjj的mini-vue"),
+        h(
+          "button",
+          {
+            onClick: () => {
+              console.log(123)
+            },
+          },
+          "点击"
+        ),
+      ]
+      // 1.通过h函数创建一个vnode
+      const vnode = h("div", { class: "head-title", id: "旧的hjj" }, testArr)
 
       // 2. 将vnode挂载到某个div上面
       mount(vnode, document.querySelector("#app"))
@@ -33,7 +48,7 @@
         const newNode = h(
           "div",
           { class: "head-title", id: "new的hjj" },
-          "newText"
+          testLongArr
         )
         patch(vnode, newNode)
       }, 2000)
