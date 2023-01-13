@@ -1,6 +1,5 @@
 // 用于返回vnode对象
 const h = (tag, props, children) => {
-  console.log(tag, props, children)
   // h函数转化为 vnode对象 javascript对象
 
   return {
@@ -13,6 +12,7 @@ const h = (tag, props, children) => {
 const mount = (vnode, container) => {
   // 将vnode转换为真实的dom对象 并且在vnode上保留一份el
   const el = (vnode.el = document.createElement(vnode.tag))
+  console.log("el:", el)
 
   // 2. 处理props
   if (vnode.props) {
@@ -41,6 +41,7 @@ const mount = (vnode, container) => {
 
   // 挂载到container
   container.appendChild(el)
+  console.log(container, "container")
 }
 
 // patch函数
@@ -53,6 +54,7 @@ const patch = (n1, n2) => {
     mount(n2, n1Parent)
   } else {
     // 1. 取出elment对象 并且在n2里保存
+    console.log(n1, n2)
     const el = (n2.el = n1.el)
 
     // 2. 处理props

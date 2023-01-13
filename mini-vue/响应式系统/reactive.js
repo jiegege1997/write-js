@@ -81,20 +81,19 @@ function reactive(raw) {
 
 const info = reactive({ age: 20, sex: "男", title: "总监" })
 const hjj = reactive({ age: 24, title: "前端开发工程师" })
-
 const proxy = reactive({ name: "123" })
 reactive(hjj)
 proxy.name = 333
 
-watchEffect(function () {
-  console.log("更新")
-  console.log(info.age * 2)
-})
+// watchEffect(function () {
+//   console.log("更新")
+//   console.log(info.age * 2)
+// })
 
-watchEffect(function () {
-  console.log("hjj年龄变化了")
-  console.log(hjj.age, "aaa")
-})
-info.age = 40
-info.sex = "女"
+// watchEffect(function () {
+//   console.log("hjj年龄变化了")
+//   console.log(hjj.age, "aaa")
+// })
+// info.age = 40
+// info.sex = "女"
 // hjj.age = 25
