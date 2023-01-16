@@ -8,14 +8,11 @@ function createApp(rootComponent) {
 
       watchEffect(function () {
         if (!isMounted) {
-          console.log("挂载", oldVnode)
           oldVnode = rootComponent.render()
-          console.log(rootComponent.render(), "aaa")
-          mount(rootComponent.render(), container)
+          mount(oldVnode, container)
           isMounted = true
         } else {
           const newVnode = rootComponent.render()
-          console.log(oldVnode, newVnode, "aabb")
           patch(oldVnode, newVnode)
           oldVnode = newVnode
         }

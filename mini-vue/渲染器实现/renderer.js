@@ -12,7 +12,7 @@ const h = (tag, props, children) => {
 const mount = (vnode, container) => {
   // 将vnode转换为真实的dom对象 并且在vnode上保留一份el
   const el = (vnode.el = document.createElement(vnode.tag))
-  console.log("el:", el)
+  console.log(el, "mount")
 
   // 2. 处理props
   if (vnode.props) {
@@ -47,6 +47,7 @@ const mount = (vnode, container) => {
 // patch函数
 const patch = (n1, n2) => {
   // debugger
+  console.log("patch")
   // 1. 比较tag 如果tag都不一样 直接整个替换
   if (n1.tag !== n2.tag) {
     const n1Parent = n1.el.parentElement
@@ -54,8 +55,9 @@ const patch = (n1, n2) => {
     mount(n2, n1Parent)
   } else {
     // 1. 取出elment对象 并且在n2里保存
-    console.log(n1, n2)
+
     const el = (n2.el = n1.el)
+    console.log(n1, n2, el, "打印")
 
     // 2. 处理props
     const oldProps = n1.props || {}
@@ -75,13 +77,12 @@ const patch = (n1, n2) => {
     }
     // 2.2. 将旧的props删除
     for (const key in oldProps) {
+      if (key.startsWith("on")) {
+        const value = oldProps[key]
+        el.removeEventListener(key.slice(2).toLowerCase(), value)
+      }
       if (!(key in newProps)) {
-        if (key.startsWith("on")) {
-          const value = oldProps[key]
-          el.removeEventListener(key.slice(2).toLowerCase(), value)
-        } else {
-          el.removeAttribute(key)
-        }
+        el.removeAttribute(key)
       }
     }
 
@@ -92,6 +93,7 @@ const patch = (n1, n2) => {
     // 3.1 当新children是字符串
     if (typeof newChildren === "string") {
       if (typeof oldChildren === "string") {
+        console.log(el, oldChildren, newChildren, "节奏")
         if (oldChildren !== newChildren) {
           el.textContent = newChildren
         }
